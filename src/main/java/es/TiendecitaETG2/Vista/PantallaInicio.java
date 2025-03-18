@@ -1,18 +1,25 @@
 package es.TiendecitaETG2.Vista;
 
 import es.TiendecitaETG2.Controlador.ControladorPrincipal;
+import es.studium.Jaspersoft.InformeArticulos;
+import es.studium.Jaspersoft.InformeTickets;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PantallaInicio extends JFrame {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private ControladorPrincipal controlador;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private ControladorPrincipal controlador;
+    Button btnGenerarInformeAr = new Button("Generar Informe Articulos");
+    Button btnGenerarInformeTi = new Button("Generar Informe Tickets");
 
     public PantallaInicio() {
-    	setBackground(new Color(255, 182, 193));
+        setBackground(new Color(255, 182, 193));
         controlador = new ControladorPrincipal();
 
         setTitle("Gestión de Artículos y Tickets");
@@ -56,14 +63,60 @@ public class PantallaInicio extends JFrame {
     }
 
     private void contentPaneSetup() {
+        // Creamos el panel de fondo
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0, 206, 209));
-        panel.setLayout(null);
+        panel.setBackground(new Color(0, 206, 209)); // Color de fondo
+        panel.setLayout(new BorderLayout()); // Usamos BorderLayout para que ocupe todo el espacio disponible
+
+        // Creamos la etiqueta
         JLabel label = new JLabel("Bienvenido al sistema de gestión de Tiendecita", JLabel.CENTER);
         label.setBounds(10, 69, 434, 79);
         label.setForeground(new Color(255, 250, 240));
-        panel.add(label);
+
+        // Añadir la etiqueta al panel (centrado)
+        panel.add(label, BorderLayout.NORTH);
+
+        // Creamos el panel de botones
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(0, 206, 209));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Centra los botones
+        buttonPanel.add(btnGenerarInformeAr);
+        buttonPanel.add(btnGenerarInformeTi);
+
+        // Añadir el panel de botones al panel principal
+        panel.add(buttonPanel, BorderLayout.CENTER); // Esto hará que los botones estén centrados
+
+        // Configuramos el contentPane para que use el panel de fondo
         setContentPane(panel);
+
+        // Añadimos los listeners a los botones
+        btnGenerarInformeAr.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarInformeArticulos();
+            }
+        });
+
+        btnGenerarInformeTi.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarInformeTickets();
+            }
+        });
+    }
+
+    // Métodos para generar los informes
+    private void generarInformeArticulos() {
+        // Aquí se podría invocar algún método en el controlador que genere el informe de artículos
+        System.out.println("Generando informe de Artículos...");
+        // Por ejemplo:
+       new InformeArticulos();
+    }
+
+    private void generarInformeTickets() {
+        // Aquí se podría invocar algún método en el controlador que genere el informe de tickets
+        System.out.println("Generando informe de Tickets...");
+        new InformeTickets();
     }
 
     private void abrirAltaArticulo() {
